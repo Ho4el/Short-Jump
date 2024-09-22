@@ -4,16 +4,14 @@ const JUMP_FORCE = 800;
 const SPEED = 480;
 
 // initialize context
-kaplay({
-    debugKey: "r",
-});
-
-// load assets
-loadSprite("bean", "assets/img/Ksyus.png");
+kaplay();
 
 scene("game", () => {
     // define gravity
     setGravity(1600);
+    
+    // load assets
+    loadSprite("bean", "assets/img/Ksyus.png");
 
     // add a game object to screen
     const player = add([
