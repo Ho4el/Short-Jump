@@ -1,17 +1,30 @@
 import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
-
 const FLOOR_HEIGHT = 100;
 const JUMP_FORCE = 800;
-const SPEED = 600;
+const SPEED = 720;
 
 // initialize context
 kaplay({
+    width: 1280,
+    height: 720,
+    letterbox: true,
     background: [43, 133, 145],
+    degub: false,
 });
 
 scene("game", () => {
+
     // define gravity
     setGravity(1600);
+
+    loadSprite('sun', "assets/img/sun.png")
+
+    // add Sun
+    add([
+        sprite("sun"),
+        pos(800, 0),
+        scale(2),
+    ]);
 
     // floor
     add([
@@ -48,21 +61,25 @@ scene("game", () => {
 
     // load assets
 
+    loadSprite("tga", "assets/img/tga.png");
+
     function spawnTree() {
         // add tree obj
         add([
-            rect(48, rand(32, 96)),
+            sprite("tga"),
+            body(),
             area(),
-            outline(4),
             pos(width(), height() - FLOOR_HEIGHT),
             anchor("botleft"),
             color(255, 180, 255),
             move(LEFT, SPEED),
+            offscreen({destroy: true}),
+            scale(rand(1, 1.5)),
             "tree",
         ]);
 
         // wait a random amount of time to spawn next tree
-        wait(rand(1.2, 1.8), spawnTree);
+        wait(rand(1, 1.8), spawnTree);
     }
 
     // start spawning trees
@@ -82,7 +99,7 @@ scene("game", () => {
     const scoreLabel = add([text(score), pos(24, 24)]);
 
     // increment score every frame
-    onUpdate(() => {
+    loop(1, () => {
         score++;
         scoreLabel.text = score;
     });
