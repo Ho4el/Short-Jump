@@ -9,7 +9,7 @@ kaplay({
 });
 
 // load assets
-loadSprite("bean", "/assets/img/Ksyus.png");
+loadSprite("bean", "assets/img/Ksyus.png");
 
 scene("game", () => {
     // define gravity
