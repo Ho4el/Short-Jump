@@ -1,11 +1,12 @@
 import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
-
-const FLOOR_HEIGHT = 48;
+const FLOOR_HEIGHT = 100;
 const JUMP_FORCE = 800;
 const SPEED = 600;
 
 // initialize context
-kaplay();
+kaplay({
+    background: [43, 133, 145],
+});
 
 scene("game", () => {
     // define gravity
@@ -29,7 +30,7 @@ scene("game", () => {
     const player = add([
         // list of components
         sprite("bean"),
-        pos(80, 40),
+        pos(350, 40),
         area(),
         body(),
     ]);
@@ -43,6 +44,8 @@ scene("game", () => {
     // jump when user press space
     onKeyPress("space", jump);
     onClick(jump);
+
+    // load assets
 
     function spawnTree() {
         // add tree obj
