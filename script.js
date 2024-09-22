@@ -2,7 +2,7 @@ import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
 
 const FLOOR_HEIGHT = 48;
 const JUMP_FORCE = 800;
-const SPEED = 480;
+const SPEED = 600;
 
 // initialize context
 kaplay();
