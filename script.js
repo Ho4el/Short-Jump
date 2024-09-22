@@ -1,4 +1,5 @@
 import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
+
 const FLOOR_HEIGHT = 48;
 const JUMP_FORCE = 800;
 const SPEED = 480;
@@ -9,18 +10,6 @@ kaplay();
 scene("game", () => {
     // define gravity
     setGravity(1600);
-    
-    // load assets
-    loadSprite("bean", "assets/img/Ksyus.png");
-
-    // add a game object to screen
-    const player = add([
-        // list of components
-        sprite("bean"),
-        pos(80, 40),
-        area(),
-        body(),
-    ]);
 
     // floor
     add([
@@ -31,6 +20,18 @@ scene("game", () => {
         area(),
         body({ isStatic: true }),
         color(127, 200, 255),
+    ]);
+
+    // load assets
+    loadSprite("bean", "assets/img/Ksyus.png");
+
+    // add a game object to screen
+    const player = add([
+        // list of components
+        sprite("bean"),
+        pos(80, 40),
+        area(),
+        body(),
     ]);
 
     function jump() {
