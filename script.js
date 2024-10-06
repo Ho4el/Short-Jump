@@ -103,7 +103,6 @@ scene("game", () => {
             area(),
             pos(width(), height() - FLOOR_HEIGHT),
             anchor("botleft"),
-            color(255, 180, 255),
             move(LEFT, rand(SPEED + 250, SPEED + 380)),
             offscreen({destroy: true}),
             scale(rand(SCALE - 0.05 , SCALE)),
@@ -148,7 +147,7 @@ scene("lose", (score) => {
     add([
         sprite("bean"),
         pos(width() / 2, height() / 2 - 80),
-        scale(2),
+        scale(SCALE * 2),
         anchor("center"),
     ]);
 
