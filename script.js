@@ -1,7 +1,10 @@
 import kaplay from "https://unpkg.com/kaplay@3000.1.17/dist/kaboom.mjs"
-const FLOOR_HEIGHT = 100;
-const JUMP_FORCE = 800;
-const SPEED = 720;
+const FLOOR_HEIGHT = 150;
+const JUMP_FORCE = 1000;
+const SPEED = 480;
+const SCALE = 0.3
+
+
 
 // initialize context
 kaplay({
@@ -12,10 +15,14 @@ kaplay({
     degub: false,
 });
 
+
+
 scene("game", () => {
 
     // define gravity
     setGravity(1600);
+    
+
 
     loadSprite('sun', "assets/img/sun.png")
 
@@ -25,6 +32,7 @@ scene("game", () => {
         pos(800, 0),
         scale(2),
     ]);
+
 
     // floor
     add([
@@ -37,17 +45,24 @@ scene("game", () => {
         color(127, 200, 255),
     ]);
 
+
+
+
     // load assets
-    loadSprite("bean", "assets/img/Ksyus.png");
+    loadSprite("bean", "assets/img/cats/playercat.png");
 
     // add a game object to screen
     const player = add([
         // list of components
         sprite("bean"),
+        scale(SCALE),
         pos(350, 40),
         area(),
         body(),
     ]);
+
+
+
 
     function jump() {
         if (player.isGrounded()) {
@@ -59,28 +74,50 @@ scene("game", () => {
     onKeyPress("space", jump);
     onClick(jump);
 
-    // load assets
 
-    loadSprite("tga", "assets/img/tga.png");
+
+
+    // load assets
+    loadSprite("zloa", "assets/img/cats/zlo-dota.png");
+    loadSprite("zlob", "assets/img/cats/zlo-inger.png");
+    loadSprite("zloc", "assets/img/cats/zlo-yarik.png");
+
 
     function spawnTree() {
+        const value = Math.floor(Math.random() * (4 - 1)) + 1;
+        let nameS = 'none';
+
+        if (value === 1) {
+            nameS = 'zloa';
+        } else if (value === 2) {
+            nameS = 'zlob';
+        } else {
+            nameS = 'zloc';
+        }
+
+
         // add tree obj
         add([
-            sprite("tga"),
+            sprite(nameS),
             body(),
             area(),
             pos(width(), height() - FLOOR_HEIGHT),
             anchor("botleft"),
             color(255, 180, 255),
-            move(LEFT, SPEED),
+            move(LEFT, rand(SPEED + 250, SPEED + 380)),
             offscreen({destroy: true}),
-            scale(rand(1, 1.5)),
+            scale(rand(SCALE - 0.05 , SCALE)),
             "tree",
         ]);
 
+
+
         // wait a random amount of time to spawn next tree
-        wait(rand(1, 1.8), spawnTree);
+        wait(rand(2, 2.8), spawnTree);
     }
+
+
+
 
     // start spawning trees
     spawnTree();
@@ -95,7 +132,6 @@ scene("game", () => {
 
     // keep track of score
     let score = 0;
-
     const scoreLabel = add([text(score), pos(24, 24)]);
 
     // increment score every frame
@@ -105,6 +141,9 @@ scene("game", () => {
     });
 });
 
+
+
+
 scene("lose", (score) => {
     add([
         sprite("bean"),
@@ -113,6 +152,7 @@ scene("lose", (score) => {
         anchor("center"),
     ]);
 
+
     // display score
     add([
         text(score),
@@ -120,6 +160,7 @@ scene("lose", (score) => {
         scale(2),
         anchor("center"),
     ]);
+
 
     // go back to game with space is pressed
     onKeyPress("space", () => go("game"));
